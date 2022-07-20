@@ -1,10 +1,9 @@
 package com.codeup.firstspring;
 
+import com.codeup.firstspring.Models.Post;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class PostController {
@@ -15,6 +14,16 @@ public class PostController {
         return "Welcome to the main page!";
     }
 
+    @GetMapping("/show")
+    public String show() {
+        return "posts/show";
+    }
+
+    @GetMapping("/index")
+    public String index() {
+        return "posts/index";
+    }
+
 
     @RequestMapping(path = "/posts/{indexnum}", method = RequestMethod.GET)
     @ResponseBody
@@ -22,22 +31,20 @@ public class PostController {
         return "Show post: " + indexnum; //retrieve data id and post it
     }
 
-    @RequestMapping(path = "/posts/create", method = RequestMethod.GET)
-    @ResponseBody
+    @GetMapping("/posts/create")
     public String createPost() {
-        return "" +
-                "<form action=\"/posts/create\" method=\"post\">" +
-                "<label for=\"create\">Post info:</label>" +
-                "<input type=\"text\" id=\"create\" name=\"create\">" +
-                "<button type=\"submit\">Submit</button>" +
-                "</form>"; //retrieve data id and post it
+        return "/posts/create";
     }
 
-    @RequestMapping(path = "/posts/create", method = RequestMethod.POST)
-    @ResponseBody
-    public String showPost() {
-        return "<h1>Redirect to website with created post </h1>";
-        // send to form site
-//        // redirect
+
+    @PostMapping("/posts/create")
+    public String createPostPart2(@RequestParam(name = "title") String title,@RequestParam(name = "description") String description, Model model) {
+        Post post = new Post(title, description);
+//        System.out.println(title);
+//        System.out.println(post.getTitle());
+//        System.out.println(post.getBody());
+        model.addAttribute("post", post);
+        return "posts/index";
     }
+
 }
