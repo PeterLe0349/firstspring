@@ -5,6 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class PostController {
 
@@ -15,7 +18,14 @@ public class PostController {
     }
 
     @GetMapping("/show")
-    public String show() {
+    public String show(Model model) {
+        List<Post> posts = new ArrayList<>();
+        posts.add(new Post("first", "some first stuff"));
+        posts.add(new Post("second", "some second stuff"));
+//        System.out.println(title);
+//        System.out.println(post.getTitle());
+//        System.out.println(post.getBody());
+        model.addAttribute("posts", posts);
         return "posts/show";
     }
 
