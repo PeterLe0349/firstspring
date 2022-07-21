@@ -17,4 +17,9 @@ public class NumeroController {
         model.addAttribute("numeros", numeroDao.findAll());
         return ("/numero/index.html");
     }
+
+    @GetMapping("/google")
+    public String google(){
+        return ("redirect:/numero");
+    }
 }

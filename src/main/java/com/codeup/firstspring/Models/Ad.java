@@ -2,6 +2,7 @@ package com.codeup.firstspring.Models;
 import javax.persistence.*;
 
 @Entity
+@Table(name="ads")
 public class Ad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -10,10 +11,25 @@ public class Ad {
     @Column(nullable = false, length = 100)
     private String title;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String description;
 
+    @ManyToOne
+    @JoinColumn (name = "user_id")
+    private User user;
+
     public Ad() {
+    }
+
+    public Ad(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
+    public Ad(String title, String description, User user) {
+        this.title = title;
+        this.description = description;
+        this.user = user;
     }
 
     public long getId() {
@@ -39,4 +55,5 @@ public class Ad {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }
