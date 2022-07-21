@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials :: head" />
+<body>
+<nav th:replace="partials :: navbar" />
+<h1>Numero Page</h1>
+<hr>
+<div th:each="numero : ${numeros}">
+<!--    <h1 th:text="${post.title}" />-->
+<!--    <h4 th:text="${post.body}" />-->
+    <br>
+</div>
+
+</body>

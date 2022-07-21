@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,7 @@ public class PostController {
     @PostMapping("/posts/create")
     public String createPostPart2(@RequestParam(name = "title") String title,@RequestParam(name = "description") String description, Model model) {
         Post post = new Post(title, description);
+        postDao.save(post);
 //        System.out.println(title);
 //        System.out.println(post.getTitle());
 //        System.out.println(post.getBody());
