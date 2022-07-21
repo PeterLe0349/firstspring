@@ -1,9 +1,19 @@
 package com.codeup.firstspring.Models;
-
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
+@Table(name="posts")
 public class Post implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(nullable = false)
     private String body;
 
     public Post(){

@@ -11,10 +11,17 @@ import java.util.List;
 @Controller
 public class PostController {
 
-    @RequestMapping(path = "/posts", method = RequestMethod.GET)
-    @ResponseBody
-    public String mainPage() {
-        return "Welcome to the main page!";
+    private final PostRepository postDao;
+
+    public PostController(PostRepository postDao) {
+        this.postDao = postDao;
+    }
+
+
+    @GetMapping("/posts")
+    public String post(Model model){
+        model.addAttribute("posts", postDao.findAll());
+        return "/posts";
     }
 
     @GetMapping("/show")
